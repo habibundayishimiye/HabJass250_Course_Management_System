@@ -67,8 +67,8 @@ public class CourseController {
                 DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
                 view.getTxtID().setText(model.getValueAt(index, 0).toString());
                 view.getTxtName().setText(model.getValueAt(index, 1).toString());
-                view.getComboTcID().setSelectedItem(model.getValueAt(index, 2).toString());
-                view.getTxtCategory().setText(model.getValueAt(index, 3).toString());
+                view.getTxtCategory().setText(model.getValueAt(index, 2).toString());
+                view.getComboTcID().setSelectedItem(model.getValueAt(index, 3).toString());
             }
         });
     }
@@ -77,26 +77,26 @@ public class CourseController {
         List<Course> courses = model.getAllCourses();
         DefaultTableModel tableModel = (DefaultTableModel) view.getTable().getModel();
         tableModel.setRowCount(0);
-        tableModel.setColumnIdentifiers(new Object[]{"ID", "Name", "Teacher", "Category"}); // Ensure column headers are set
+        tableModel.setColumnIdentifiers(new Object[]{"ID", "Name", "Category", "Teacher"}); // Ensure column headers are set
         for (Course course : courses) {
-            tableModel.addRow(new Object[]{course.getId(), course.getName(), course.getTeacherName(), course.getCategory()});
+            tableModel.addRow(new Object[]{course.getId(), course.getName(), course.getCategory(), course.getTeacherName()});
         }
     }
 
     private void saveCourse() {
         String name = view.getTxtName().getText();
-        String teacherName = (String) view.getComboTcID().getSelectedItem();
         String category = view.getTxtCategory().getText();
+        String teacherName = (String) view.getComboTcID().getSelectedItem();
 
-        if (name.isEmpty() || teacherName.isEmpty() || category.isEmpty()) {
+        if (name.isEmpty() || category.isEmpty() || teacherName.isEmpty()) {
             JOptionPane.showMessageDialog(view, "Please fill all fields");
             return;
         }
 
         Course course = new Course();
         course.setName(name);
+        course.setCategory(category);  // Make sure category is set
         course.setTeacherName(teacherName);
-        course.setCategory(category);
 
         model.addCourse(course);
         JOptionPane.showMessageDialog(view, "Course saved successfully");
@@ -107,10 +107,10 @@ public class CourseController {
     private void updateCourse() {
         String id = view.getTxtID().getText();
         String name = view.getTxtName().getText();
-        String teacherName = (String) view.getComboTcID().getSelectedItem();
         String category = view.getTxtCategory().getText();
+        String teacherName = (String) view.getComboTcID().getSelectedItem();
 
-        if (id.isEmpty() || name.isEmpty() || teacherName.isEmpty() || category.isEmpty()) {
+        if (id.isEmpty() || name.isEmpty() || category.isEmpty() || teacherName.isEmpty()) {
             JOptionPane.showMessageDialog(view, "Please fill all fields");
             return;
         }
@@ -118,8 +118,8 @@ public class CourseController {
         Course course = new Course();
         course.setId(Integer.parseInt(id));
         course.setName(name);
-        course.setTeacherName(teacherName);
         course.setCategory(category);
+        course.setTeacherName(teacherName);
 
         model.updateCourse(course);
         JOptionPane.showMessageDialog(view, "Course updated successfully");
@@ -148,7 +148,7 @@ public class CourseController {
     private void clearFields() {
         view.getTxtID().setText("");
         view.getTxtName().setText("");
-        view.getComboTcID().setSelectedIndex(-1);
         view.getTxtCategory().setText("");
+        view.getComboTcID().setSelectedIndex(-1);
     }
 }

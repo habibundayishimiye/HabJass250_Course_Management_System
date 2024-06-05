@@ -6,9 +6,9 @@ import java.sql.*;
 import java.util.Vector;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/CMS";
+    private static final String URL = "jdbc:mysql://localhost:3310/CMS";
     private static final String USER = "root";
-    private static final String PASSWORD = "971040";
+    private static final String PASSWORD = "Hab.jass52";
 
     public static Connection getConnection() {
         try {
